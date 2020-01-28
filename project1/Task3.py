@@ -45,22 +45,20 @@ The percentage should have 2 decimal digits
 """
 # PART A
 areaCodes = set()
-firstNumberMobile = [7,8,9]
+firstNumberMobile = ['7','8','9']
 for line in calls:
     callerNumber = line[0]
     if callerNumber[:5] =='(080)':
         receiverNumber = line[1]
-#             Check if fixed line
+        #   Check if fixed line
         if receiverNumber[0] == '(':
             receiverAreaCode = receiverNumber[1:].split(')')[0]
-        #     Check if mobile line
-#         if receiverNumber[0] in firstNumberMobile:
-        elif " " in receiverNumber:
-            receiverAreaCode = receiverNumber[:4]
-#         elif receiverNumber[:3] == 140:
-#             receiverAreaCode = 140
-        areaCodes.add(receiverAreaCode)
-
+            areaCodes.add(receiverAreaCode)
+        #   Check if mobile line
+        if receiverNumber[0] in firstNumberMobile:
+            if " " in receiverNumber:
+                receiverAreaCode = receiverNumber[:4]
+                areaCodes.add(receiverAreaCode)
             
 print("The numbers called by people in Bangalore have codes:")
 for code in sorted(areaCodes):
