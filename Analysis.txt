@@ -1,0 +1,16 @@
+Student provides a file explaining their run time analysis (Worst Case Big O Notation) for each solution they produced.
+
+Task0:
+The run time is O(1). There is only 1 input data and no iterations are computed
+
+Task1:
+The run time is O(n). There are 2 loops that iterate over each line of the 2 dataset. These loops are consecutives, thus the input is 2n which becomes O(n)
+
+Task2:
+The run time is O(n). A first loop will iterate over each line of the call dataset to build a dictionnary with all numbers. Then another loop will iterate over each value of the dictionnary to find the number that spent the longest time on the phone 
+
+Task3:
+The run time is O(n).
+
+Task4:
+The run time is O(n).
