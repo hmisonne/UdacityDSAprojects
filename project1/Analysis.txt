@@ -10,7 +10,10 @@ Task2:
 The run time is O(n). A first loop will iterate over each line of the call dataset to build a dictionnary with all numbers. Then another loop will iterate over each value of the dictionnary to find the number that spent the longest time on the phone 
 
 Task3:
-The run time is O(n).
+- Part A
+The run time is O(n). A first loop will iterate over each line of the call dataset to get all receiver area codes based on the caller area code. Then to print the sorted area code I used another loop to go through the results and used the sorted function which should be O(n log n) which is less than O(n).
+- Part B
+The run time is O(n).There is one main loop with if statements.
 
 Task4:
-The run time is O(n).
+The run time is O(n). There are 3 main loops, they all traverse the database once which means O(3n) (which is equal to O(n) ). Then there is one loop to iterate over the results with a sorted function O(n log n) (see previous answer).
