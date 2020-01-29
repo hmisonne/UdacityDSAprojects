@@ -20,15 +20,7 @@ Print messages:
 "Last record of calls, <incoming number> calls <answering number> at time <time>, lasting <during> seconds"
 """
 # the first record will be located on the first line: text[0]
-incomingNumber= texts[0][0]
-answeringNumber = texts[0][1]
-time = texts[0][2]
-print("First record of texts, "+str(incomingNumber)+" texts "+str(answeringNumber)+" at time "+str(time))
+print("First record of texts, {} texts {} at time {}".format(*texts[0]))
 
 # the last record will be located on the last line: calls[-1]
-incomingNumber= calls[-1][0]
-answeringNumber = calls[-1][1]
-time =calls[-1][2]
-during = calls[-1][3]
-
-print("Last record of calls, "+str(incomingNumber)+" calls "+str(answeringNumber)+" at time "+str(time)+", lasting "+str(during)+" seconds")
+print("Last record of calls, {} calls {} at time {}, lasting {} seconds".format(*calls[-1]))

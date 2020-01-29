@@ -24,17 +24,9 @@ September 2016.".
 # Initialize dictionnary with record of time spent by phone number
 recordTimeSpent = {}
 
-for line in calls:
-#     If the number is already in the dictionnary, increment the time spent (value of the dictionnary key)
-    if line[0] in recordTimeSpent:
-        recordTimeSpent[line[0]]+=int(line[3])
-#     If not create a new entry
-    else:
-        recordTimeSpent[line[0]]=int(line[3])
-    if line[1] in recordTimeSpent:
-        recordTimeSpent[line[1]]+=int(line[3])
-    else:
-        recordTimeSpent[line[1]]=int(line[3])
+for row in calls:
+    recordTimeSpent[row[0]]=recordTimeSpent.get(row[0],0) + int(row[3])
+    recordTimeSpent[row[1]]=recordTimeSpent.get(row[1],0) + int(row[3])
 
 # Iterate over values of dictonnary to find the number that spent the longest time on the phone.
 longestTime = 0
@@ -45,6 +37,9 @@ for key, value in recordTimeSpent.items():
         longestTime = value
     elif longestTime < value:
         telephoneNumber = key
+        longestTime = value
 
-print(str(telephoneNumber)+" spent the longest time, "+str(longestTime)+" seconds, on the phone during September 2016.")
+print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(telephoneNumber,longestTime))
+
+
 

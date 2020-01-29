@@ -1,7 +1,7 @@
 Student provides a file explaining their run time analysis (Worst Case Big O Notation) for each solution they produced.
 
 Task0:
-The run time is O(1). There is only 1 input data and no iterations are computed
+The run time is O(1). This task computes a get operation in a list which takes constant time no matter the size of the input.
 
 Task1:
 The run time is O(n). There are 2 loops that iterate over each line of the 2 dataset. These loops are consecutives, thus the input is 2n which becomes O(n)
@@ -11,9 +11,9 @@ The run time is O(n). A first loop will iterate over each line of the call datas
 
 Task3:
 - Part A
-The run time is O(n). A first loop will iterate over each line of the call dataset to get all receiver area codes based on the caller area code. Then to print the sorted area code I used another loop to go through the results and used the sorted function which should be O(n log n) which is less than O(n).
+The run time is O(n log n). A first loop will iterate over each line of the call dataset to get all receiver area codes based on the caller area code O(n). Then to print the sorted area code I used another loop to go through the results and used the sorted function which takes O(n log n). Since O(n log n) is slower than O(n) the run time is O(n log n) 
 - Part B
 The run time is O(n).There is one main loop with if statements.
 
 Task4:
-The run time is O(n). There are 3 main loops, they all traverse the database once which means O(3n) (which is equal to O(n) ). Then there is one loop to iterate over the results with a sorted function O(n log n) (see previous answer).
+The run time is O(n log n). There are 3 main loops, they all traverse the database once which means O(3n) (which is equal to O(n) ). Then, there is one loop that iterate over the results with a sorted function O(n log n).

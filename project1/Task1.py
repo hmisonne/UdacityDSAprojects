@@ -30,4 +30,4 @@ for line in calls:
     uniqueTelNumbers.update([line[0],line[1]])
 count= len(uniqueTelNumbers)
 
-print("There are "+str(count)+" different telephone numbers in the records.")
+print("There are {} different telephone numbers in the records.".format(count))
