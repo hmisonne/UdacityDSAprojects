@@ -19,13 +19,13 @@ Print messages:
 "First record of texts, <incoming number> texts <answering number> at time <time>"
 "Last record of calls, <incoming number> calls <answering number> at time <time>, lasting <during> seconds"
 """
-
+# the first record will be located on the first line: text[0]
 incomingNumber= texts[0][0]
 answeringNumber = texts[0][1]
-time =texts[0][2]
-
-
+time = texts[0][2]
 print("First record of texts, "+str(incomingNumber)+" texts "+str(answeringNumber)+" at time "+str(time))
+
+# the last record will be located on the last line: calls[-1]
 incomingNumber= calls[-1][0]
 answeringNumber = calls[-1][1]
 time =calls[-1][2]

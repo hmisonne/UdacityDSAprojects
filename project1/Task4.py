@@ -27,16 +27,14 @@ The list of numbers should be print out one per line in lexicographic order with
 telemarkNumbers = set()
 regularNumbers = set()
 
-# Identify numbers that send or receive texts and add to regularNumbers list
+# Add numbers that send or receive texts to the regularNumbers list
 for line in texts:
-    if line[0] not in regularNumbers:
-        regularNumbers.add(line[0])
-    elif line[1] not in regularNumbers:
-        regularNumbers.add(line[1])
-# Identify numbers that make receive incoming calls and add to regularNumbers list
+    regularNumbers.add(line[0])
+    regularNumbers.add(line[1])
+    
+# Add numbers that make or receive incoming calls to the regularNumbers list
 for line in calls:
-    if line[1] not in regularNumbers:
-        regularNumbers.add(line[1])
+    regularNumbers.add(line[1])
 
 # Identify numbers that make outgoing calls which are not in the regularNumbers list
 for line in calls:

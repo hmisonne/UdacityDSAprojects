@@ -18,11 +18,14 @@ How many different telephone numbers are there in the records?
 Print a message:
 "There are <count> different telephone numbers in the records."
 """
+# Initialize a set to record unique telephone numbers
 uniqueTelNumbers = set()
 
+# Iterate through the record of text to get incoming number and answering number
 for line in texts:
     uniqueTelNumbers.update([line[0],line[1]])
-
+    
+# Iterate through the record of calls to get incoming number and answering number
 for line in calls:
     uniqueTelNumbers.update([line[0],line[1]])
 count= len(uniqueTelNumbers)
