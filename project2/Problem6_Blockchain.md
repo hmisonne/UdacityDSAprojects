@@ -7,3 +7,5 @@ To implement a blockchain, I needed to create a linked list of blocks. Each bloc
 Adding a new block to the chain can be done in O(1) since a reference of the tail is kept.
 Checking if the blockchain is valid takes O(n) since we are iterating over all the blocks of the chain.
 
+## Space Complexity
+The space complexity is O(1)

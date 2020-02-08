@@ -28,4 +28,5 @@ The binary tree is then a nice tool to generate unique prefix.
 
 Once the tree is built, I used a dictionary to match the binary code with the letter. 
 
-
+## Space complexity
+The space complexity of a sorting algorithm is O(n) . To traverse the binary tree, it will be equal to the depth of the tree: O(log n)

@@ -11,3 +11,6 @@ mf = number of subfolders in folder
 ## Time complexity
 First, I needed to iterate through the folder content which takes O(m)
 Then, I go to each subfolder recursively which takes O(m * mf)
+
+## Space complexity
+The space complexity is O(mf) (of total number of subfolders) 
