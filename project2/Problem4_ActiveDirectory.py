@@ -60,9 +60,9 @@ def test(user, group, expected_output):
     else:
         print('Fail')
 
-test(sub_child_user, parent, True)
-test(sub_child_user, sub_child2, True)
-test('Not a user', parent, False)
-test('', parent, False)
-test(None, parent, False)
-test(sub_child_user, sub_child, False)
+test(sub_child_user, parent, True) # Expected output: Pass
+test(sub_child_user, sub_child2, True) # Expected output: Pass
+test('Not a user', parent, False) # Expected output: Pass
+test('', parent, False) # Expected output: Pass
+test(None, parent, False) # Expected output: Pass
+test(sub_child_user, sub_child, False) # Expected output: Pass

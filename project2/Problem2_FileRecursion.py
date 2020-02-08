@@ -1,7 +1,10 @@
 import os
 def recursive_find_files(path, suffix, output = []):
-#     Build a list of paths of all elements that end with a particular suffix (output list)
-#     And a list of subfolders (subfolder list)
+#     Build a list of paths of the element that ends with a particular suffix
+#     And a list of subfolders
+    if path == None or suffix == None:
+        return ('A path/suffix needs to be specified')
+        
     listdir = os.listdir(path)
     subfolders = []
     for element in listdir:
@@ -18,6 +21,8 @@ def recursive_find_files(path, suffix, output = []):
 #    Visit all subfolders and return the output list
         for subfolder in subfolders:
             output = recursive_find_files(subfolder,suffix, output)
+        if output == []:
+            return 'No files matching this suffix'
         return output
     
     
@@ -41,6 +46,12 @@ def find_files(suffix, path):
     return recursive_find_files(path, suffix)
 
 
-suffix = ".h"
-path = "./testdir"
-print(find_files(suffix, path))
+
+
+def test(suffix, path):
+    print(find_files(suffix, path))
+
+
+test(".hfff", "./testdir") # Expected output: No files matching this suffix
+test(".h", "./testdir") # Expected output: [list of paths]
+test(None, "./testdir") # Expected output: A path/suffix needs to be specified

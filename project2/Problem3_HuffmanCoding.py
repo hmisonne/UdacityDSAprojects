@@ -122,6 +122,9 @@ def huffman_decoding(data,tree):
 
 def test(data):
     encoded_data, tree = huffman_encoding(data)
+    if encoded_data == None:
+        print ('None input handled')
+        return
     for char in str(encoded_data):
         if char != '0' and char != '1':
             print('The encoded data is not a binary code:',encoded_data)
@@ -143,11 +146,9 @@ def test2(data):
         print("Compression is working!")
   
 
-test("The bird is the word")
-test("I love Udacity, the problems are great and challenging!")
-test("a")
-test(None)
-test2("The bird is the word")
-test2("I love Udacity, the problems are great and challenging!")
-
-
+test("The bird is the word") # Expected output: Decoded data matches original input: The bird is the word
+test("I love Udacity, the problems are great and challenging!") # Expected output: Decoded data matches original input: I love Udacity, the problems are great and challenging!
+test("a") # Expected output: Decoded data matches original input: a
+test(None) # Expected output: None input handled
+test2("The bird is the word") # Expected output: Compression is working!
+test2("I love Udacity, the problems are great and challenging!") # Expected output: Compression is working!
