@@ -66,13 +66,23 @@ def test(newblocks):
     myblockchain = Blockchain()
     for blockdata in newblocks:
         previous_hash = myblockchain.get_last_hash()
-        myblockchain.add_block(blockdata, previous_hash)
-
+        new_block = myblockchain.add_block(blockdata, previous_hash)
+        if new_block != None:
+            print("Adding new block: {}".format(new_block.data))
+            print("TimeStamp: {}".format(new_block.timestamp))
+            print("Hash: {}".format(new_block.hash))
+            print("Previous Hash: {}".format(previous_hash))
+            print("\n")
+        else:
+            print("Block with value: {} not added".format(blockdata))
+            print("\n")
     if myblockchain.is_chain_valid():
         print('Pass: blockchain is Valid')
     else:
         print('Fail: blockchain is not Valid')
-    print(myblockchain)   
-test([100000,20,45,80,None,2]) # Expected output: blockchain is Valid
-test([10,20,45,80,None,2]) # Expected output: blockchain is Valid, (None block not added to the blockchain)
-test([10,20,45,80,'',2]) # Expected output: blockchain is Valid
+    print(myblockchain)
+    
+test([100000])
+test([100000,20,45,80,None,2]) # Expected output: Pass: blockchain is Valid
+test([10,20,45,80,2]) # Expected output: Pass: blockchain is Valid
+test([10,20,45,80,'',2]) # Expected output: Pass: blockchain is Valid

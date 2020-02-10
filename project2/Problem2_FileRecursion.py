@@ -47,11 +47,18 @@ def find_files(suffix, path):
 
 
 
-
 def test(suffix, path):
-    print(find_files(suffix, path))
-
+    results = find_files(suffix, path)
+    print('Files with the suffix: {} on path {}'.format(suffix, path))
+    if results == 'No files matching this suffix':
+        print('No files matching this suffix')
+    elif results == 'A path/suffix needs to be specified':
+        print('A path/suffix needs to be specified')
+    else:
+        for file in results:
+            print(file)
 
 test(".hfff", "./testdir") # Expected output: No files matching this suffix
 test(".h", "./testdir") # Expected output: [list of paths]
 test(None, "./testdir") # Expected output: A path/suffix needs to be specified
+

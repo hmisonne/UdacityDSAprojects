@@ -8,4 +8,4 @@ Adding a new block to the chain can be done in O(1) since a reference of the tai
 Checking if the blockchain is valid takes O(n) since we are iterating over all the blocks of the chain.
 
 ## Space Complexity
-The space complexity is O(1)
+The space complexity is O(1) since memory is only used one element at a time

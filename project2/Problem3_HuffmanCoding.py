@@ -121,34 +121,40 @@ def huffman_decoding(data,tree):
     return decoded_data
 
 def test(data):
+    print ("The content of the data is: {}\n".format(data))
     encoded_data, tree = huffman_encoding(data)
-    if encoded_data == None:
-        print ('None input handled')
-        return
-    for char in str(encoded_data):
-        if char != '0' and char != '1':
-            print('The encoded data is not a binary code:',encoded_data)
-            break
     decoded_data = huffman_decoding(encoded_data, tree)
-    if decoded_data != data:
-        print('Decoded data:', decoded_data)
-        print('is different from original input:',data)
+    
+    if data != None:
+        print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+        print ("The content of the encoded data is: {}\n".format(encoded_data))
+    
+        for char in str(encoded_data):
+            if char != '0' and char != '1':
+                print('The encoded data is not a binary code:',encoded_data)
+                break
+    
+        print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+        print ("The content of the decoded data is: {}\n".format(decoded_data))
+        if decoded_data != data:
+            print('Fail: Decoded data:', decoded_data)
+            print('is different from original input:',data)
+        else:
+            print('Pass: Decoded data matches original input')
+    
+        if int(sys.getsizeof(int(encoded_data, base=2))) >= int(sys.getsizeof(data)):
+            print("Fail: There is no gain in size with the encoded data: {}, Vs original data: {}".format(sys.getsizeof(int(encoded_data, base=2)),sys.getsizeof(data)))
+        else:
+            print("Pass: Compression is working!")
     else:
-        print('Decoded data matches original input:',data)
-        
-def test2(data):
-    encoded_data, tree = huffman_encoding(data)
-    decoded_data = huffman_decoding(encoded_data, tree)
+        if encoded_data == None and decoded_data == None:
+            print("None input produces None output")
+        else:
+            print("None input not handled")
 
-    if int(sys.getsizeof(int(encoded_data, base=2))) >= int(sys.getsizeof(data)):
-        print("There is no gain in size with the encoded data: {}, Vs original data: {}".format(sys.getsizeof(int(encoded_data, base=2)),sys.getsizeof(data)))
-    else:
-        print("Compression is working!")
   
 
-test("The bird is the word") # Expected output: Decoded data matches original input: The bird is the word
-test("I love Udacity, the problems are great and challenging!") # Expected output: Decoded data matches original input: I love Udacity, the problems are great and challenging!
-test("a") # Expected output: Decoded data matches original input: a
-test(None) # Expected output: None input handled
-test2("The bird is the word") # Expected output: Compression is working!
-test2("I love Udacity, the problems are great and challenging!") # Expected output: Compression is working!
+test("The bird is the word") # Expected output: Pass
+test("I love Udacity, the problems are great and challenging!") # Expected output: Pass
+test(None) # Expected output: None input produces None output
+

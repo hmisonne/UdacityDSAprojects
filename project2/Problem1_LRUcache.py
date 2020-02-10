@@ -122,28 +122,35 @@ class LRU_Cache(object):
 
 def test_function(capacity, input_list, expected_output, test_details):
     our_cache = LRU_Cache(capacity)
+    print("Initialize cache with capacity: {}".format(capacity))
     for key, value in input_list:
+        print("Set {}:{}".format(key, value))
         our_cache.set(key, value)
     linked_list = our_cache.dlinkedlist.print_ll()
     if linked_list == expected_output:
-        print(test_details+': Pass')
+        print(test_details+': Pass {}'.format(linked_list))
     else:
-        print(test_details+': Fail')
+        print(test_details+': Fail {}'.format(linked_list))
 
 def test_function2(capacity, input_list, get_element, expected_output, test_details):
     our_cache = LRU_Cache(capacity)
+    print("Initialize cache with capacity: {}".format(capacity))
     for key, value in input_list:
+        print("Set {}:{}".format(key, value))
         our_cache.set(key, value)
     if our_cache.get(get_element) == expected_output:
-        print(test_details+': Pass')
+        print(test_details+': Pass, Return {} for get({})'.format(expected_output,key))
     else:
-        print(test_details+': Fail')
+        print(test_details+': Fail, Actual: {} Vs Expected: {}'.format(our_cache.get(get_element),expected_output))
         
 def test_function3(capacity, input_list, get_list, expected_output, test_details):
     our_cache = LRU_Cache(capacity)
+    print("Initialize cache with capacity: {}".format(capacity))
     for key, value in input_list:
+        print("Set {}:{}".format(key, value))
         our_cache.set(key, value)
     for key in get_list:
+        print("Get {} - {}".format(key, our_cache.get(key)))
         our_cache.get(key)
     linked_list = our_cache.dlinkedlist.print_ll()
     if linked_list == expected_output:

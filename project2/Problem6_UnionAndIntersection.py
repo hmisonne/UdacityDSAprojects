@@ -108,15 +108,22 @@ for i in element_2:
     linked_list_4.append(i)
 
 
+
 def test_len_union(ll1, ll2):
     union_llist = union(ll1,ll2)
+    print("Union of: {} \nAnd: {}".format(ll1, ll2))
+    print("Union list is: {}".format(union_llist))
+    
+    
     if union_llist == None:
         print("Input of type None")
         return
+    print("First list size: {}, second list size: {}".format(ll1.size(), ll2.size()))
     if union_llist.size() == ll1.size() + ll2.size():
-        print("Pass: New linked list has as many nodes as linked the sum of the 2 input list elements")
+        print("Pass: New linked list has {} nodes".format(union_llist.size()))
     else:
-        print('Fail')
+        print('Fail: New linked list has {} nodes'.format(union_llist.size()))
+              
 test_len_union(linked_list_1, linked_list_2) #Expected output: Pass
 test_len_union(linked_list_3, linked_list_4) #Expected output: Pass
 test_len_union(None, linked_list_4) #Expected output: Input of type None
@@ -124,11 +131,14 @@ test_len_union(None, linked_list_4) #Expected output: Input of type None
 def test_len_instersection(ll1, ll2):
     ll1_list = ll1.to_list()
     ll2_list = ll2.to_list()
+    intersection_llist = intersection(ll1, ll2)
+    print("Intersection of: {} \nAnd: {}".format(ll1, ll2))
+    print("Intersection list is: {}".format(intersection_llist))
     intersection_nodes = []
     for element in ll2_list :
         if element in ll1_list:
             intersection_nodes.append(element)
-    intersection_llist = intersection(ll1, ll2)
+    
     if intersection_llist.size() == len(intersection_nodes):
         print('Pass: {} shared nodes'.format(len(intersection_nodes)))
     else:
@@ -136,3 +146,4 @@ def test_len_instersection(ll1, ll2):
         
 test_len_instersection(linked_list_1, linked_list_2) #Expected output: Pass
 test_len_instersection(linked_list_3, linked_list_4) #Expected output: Pass
+
