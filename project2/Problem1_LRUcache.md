@@ -6,9 +6,13 @@ For this project, I had to implement a LRU that has the following requirements:
 - if the cache is full, discard the least recently used entry
 
 ## Data Structure & Time complexity
-I decided to use a dictionary to allow an instant lookup. I could also have chosen to use a Hash Table but since there was only a maximum of 5 entries to store, a dictionary was easier to implement. 
 
 To track the least recently used entry, I chose the doubly linked list.
-With this datastructure, I could in O(1) insert and remove entries. However, to move a node to the front of the list, it could take in a worst case scenario: O(n-2) if the node is located just before the tail (time needed to traverse the doubly linked list to find the node)
+With this datastructure, I could insert and remove entries in O(1).
+However, to retrieve a value based on a key, or to move a node located in the middle of the linked list could take O(n) since we would need to traverse the chain.
 
-The space complexity is O(1) since we are only using memory to store one data at a time.
+To allow instant lookup O(1) and avoid traversing all the nodes of the linked list, I decided to use a Hash Table.
+
+When a new entry is set, it will create a new bucket in the hashtable with a value and a reference to the node of the linked list. With this reference, we can move any node of the linked list to the head.
+
+The space complexity is O(n) since we need to the references of all the data stored to allow O(1) time complexity.

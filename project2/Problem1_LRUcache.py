@@ -1,16 +1,53 @@
-# Your work here
 class Node():
     def __init__(self, key = None):
         self.key = key
         self.next = None
         self.previous = None
+        
+class Bucket():
+    def __init__(self, value, ref_to_dll):
+        self.value = value
+        self.ref_to_dll = ref_to_dll
+        
+class HashTable():
+    
+    def __init__(self, capacity = 10):
+        self.content = [None for _ in range(capacity)]
+        self.capacity = capacity
+        self.num_entries = 0
+    
+    def put(self, key, value, ref_to_dll):
+        hash_code = self.get_hash_code(key)
+        new_node = Bucket(value, ref_to_dll)
+        self.content[hash_code] = new_node
+
+    def get(self, key):
+        index = self.get_index(key)
+        if index >= self.capacity:
+            return -1
+        else:
+            bucket = self.content[index]
+            if bucket == None:
+                return -1
+            else:
+                return bucket
+        
+    def remove(self, key):
+        self.content[key] = None
+    
+    def get_index(self, key):
+        return self.get_hash_code(key)
+    
+    def get_hash_code(self, key):
+        hash_code = key
+        return hash_code
 
 class DoublyLinkedList():
     def __init__(self):
         self.head = None
         self.tail = None
         
-    def add_to_front(self, key):
+    def add_to_front(self, key):   
         node = Node(key)
         if self.head == None:
             self.head = node
@@ -19,38 +56,22 @@ class DoublyLinkedList():
             self.head.previous = node
             node.next = self.head
             self.head = node
+        return node
     
-
-    def move_to_front(self, key):
-#         If node is at the head, do nothing
-        node = self.head
-        if node.key == key:
+    def move_to_front(self, node):
+        if node == self.head:
             return
-        
-#         If node is at the tail, update the tail first and move the node to the front
-        tail = self.tail
-        if tail.key == key:
+        elif node == self.tail:
             self.remove_last()
-            self.add_to_front(key)
-            return
-        
-#          Else traverse the linked list to find the key   
-        while node is not None:
-            if node.key == key:
-                break
-            else:
-                node = node.next
-                
-#         Remove node     
-        self.remove_node(node)
-        self.add_to_front(key)
-        
+        else:
+            self.remove_node(node)
+        return self.add_to_front(node.key)
+    
     def remove_node(self, node):
         before_node = node.previous
         after_node = node.next
         before_node.next = after_node
         after_node.previous = before_node
-        
         
     def remove_last(self):
         last_node = self.tail
@@ -64,37 +85,40 @@ class DoublyLinkedList():
         while node is not None:
             llist.append(node.key)
             node = node.next
-        print(llist)
-    
+        return llist
+
 class LRU_Cache(object):
 
     def __init__(self, capacity):
-        # Initialize class variables
         self.capacity = capacity
         self.count_of_elements = 0
-        self.storage = {}
+        self.hashtable = HashTable()
         self.dlinkedlist = DoublyLinkedList()
 
     def get(self, key):
-        # Retrieve item from provided key. Return -1 if nonexistent. 
-        if key not in self.storage:
+#         Check if in HashTable 
+        result = self.hashtable.get(key)
+        if result == -1 :
             return -1
         else:
-            self.dlinkedlist.move_to_front(key)
-            return self.storage[key]
+            new_node = self.dlinkedlist.move_to_front(result.ref_to_dll)
+            self.hashtable.put(key, result.value, new_node)
+            return result.value
+
 
     def set(self, key, value):
-        # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item. 
-        if key not in self.storage:
+        if key == None:
+            return
+        if self.get(key) == -1:
             if self.count_of_elements < self.capacity:
                 self.count_of_elements += 1
             else:
                 key_to_remove = self.dlinkedlist.remove_last()
-                del self.storage[key_to_remove]
-            self.storage[key] = value
-            self.dlinkedlist.add_to_front(key)
-        else:
-            self.storage[key] = value
+                self.hashtable.remove(key_to_remove)
+        node = self.dlinkedlist.add_to_front(key)
+        self.hashtable.put(key, value, node)
+        
+
 
 def test_function(capacity, input_list, expected_output, test_details):
     our_cache = LRU_Cache(capacity)
