@@ -4,51 +4,15 @@ class Node():
         self.next = None
         self.previous = None
         
-class Bucket():
-    def __init__(self, value, ref_to_dll):
-        self.value = value
-        self.ref_to_dll = ref_to_dll
-        
-class HashTable():
-    
-    def __init__(self, capacity = 10):
-        self.content = [None for _ in range(capacity)]
-        self.capacity = capacity
-        self.num_entries = 0
-    
-    def put(self, key, value, ref_to_dll):
-        hash_code = self.get_hash_code(key)
-        new_node = Bucket(value, ref_to_dll)
-        self.content[hash_code] = new_node
-
-    def get(self, key):
-        index = self.get_index(key)
-        if index >= self.capacity:
-            return -1
-        else:
-            bucket = self.content[index]
-            if bucket == None:
-                return -1
-            else:
-                return bucket
-        
-    def remove(self, key):
-        self.content[key] = None
-    
-    def get_index(self, key):
-        return self.get_hash_code(key)
-    
-    def get_hash_code(self, key):
-        hash_code = key
-        return hash_code
 
 class DoublyLinkedList():
     def __init__(self):
         self.head = None
         self.tail = None
         
-    def add_to_front(self, key):   
-        node = Node(key)
+    def add_to_front(self, key, node):   
+        if node == None:
+            node = Node(key)
         if self.head == None:
             self.head = node
             self.tail = node
@@ -65,7 +29,7 @@ class DoublyLinkedList():
             self.remove_last()
         else:
             self.remove_node(node)
-        return self.add_to_front(node.key)
+        return self.add_to_front(None, node)
     
     def remove_node(self, node):
         before_node = node.previous
@@ -92,32 +56,41 @@ class LRU_Cache(object):
     def __init__(self, capacity):
         self.capacity = capacity
         self.count_of_elements = 0
-        self.hashtable = HashTable()
+        self.storage = {}
         self.dlinkedlist = DoublyLinkedList()
 
     def get(self, key):
-#         Check if in HashTable 
-        result = self.hashtable.get(key)
-        if result == -1 :
+        if key not in self.storage:
             return -1
         else:
-            new_node = self.dlinkedlist.move_to_front(result.ref_to_dll)
-            self.hashtable.put(key, result.value, new_node)
-            return result.value
+            self.dlinkedlist.move_to_front(self.storage[key]['ref'])
+            return self.storage[key]['value']
 
 
     def set(self, key, value):
         if key == None:
             return
         if self.get(key) == -1:
+#         if key is not in dictionary, check the capacity
             if self.count_of_elements < self.capacity:
                 self.count_of_elements += 1
+                node = self.dlinkedlist.add_to_front(key, None)
+                self.storage[key] = {'value': value, 'ref': node}
             else:
+#                 if capacity full, remove last key
                 key_to_remove = self.dlinkedlist.remove_last()
-                self.hashtable.remove(key_to_remove)
-        node = self.dlinkedlist.add_to_front(key)
-        self.hashtable.put(key, value, node)
+                if key == key_to_remove:
+                    self.dlinkedlist.move_to_front(self.storage[key]['ref'])
+                    self.storage[key]['value'] = value
+                else:
+                    del self.storage[key_to_remove]
+                    node = self.dlinkedlist.add_to_front(key, None)
+                    self.storage[key] = {'value': value, 'ref': node}
+        else:
+#             if key found in the dictionary, overwrite the value
+            self.storage[key]['value'] = value
         
+
 
 
 def test_function(capacity, input_list, expected_output, test_details):
@@ -157,6 +130,7 @@ def test_function3(capacity, input_list, get_list, expected_output, test_details
         print(test_details+': Pass')
     else:
         print(test_details+': Fail')
+
 
         
 test_details = "Create a new linked list that keeps track of the last element set"

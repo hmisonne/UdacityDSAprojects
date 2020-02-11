@@ -63,35 +63,40 @@ def generate_parent_node(left_branch, right_branch):
 def huffman_encoding(data):
     if data is None:
         return None, None
-    if len(data) == 1:
-        return 0, data
 #     Take a string and determine the relevant frequencies of the characters.
     char_count_dic = {}
     for char in data:
         char_count_dic[char] = char_count_dic.get(char,0) + 1
-            
 #     Build and sort a list of tuples from lowest to highest frequencies.
     char_count_list = []
     for key, value in char_count_dic.items():
         char_count_list.append((key, value))
     char_count_list = sorted(char_count_list, key=getKey)
 
+        
 #     Build the Huffman Tree
-    while len(char_count_list) > 1:
-        left_leaf = char_count_list.pop(0)
-        right_leaf = char_count_list.pop(0)
-        root_value = left_leaf[1] + right_leaf[1]
-        left_branch = left_leaf[0]
-        right_branch = right_leaf[0]
-#         If element of the list are already trees, convert to Nodes
-        if type(left_branch) != Node:
-            left_branch = Node(left_branch)
-        if type(right_branch) != Node:
-            right_branch = Node(right_branch)
-        new_node = generate_parent_node(left_branch, right_branch)
-        char_count_list.append((new_node, root_value))
-        char_count_list = sorted(char_count_list, key=getKey)
-    final_node = char_count_list[0][0]
+
+#     If only one letter in the input string, build a single node
+    if len(char_count_list) == 1:
+        node = Node(char_count_list.pop()[0])
+        empty_node = Node()
+        final_node = generate_parent_node(node, empty_node)
+    else:
+        while len(char_count_list) > 1:
+            left_leaf = char_count_list.pop(0)
+            right_leaf = char_count_list.pop(0)
+            root_value = left_leaf[1] + right_leaf[1]
+            left_branch = left_leaf[0]
+            right_branch = right_leaf[0]
+    #         If element of the list are not Nodes, convert to Nodes
+            if type(left_branch) != Node:
+                left_branch = Node(left_branch)
+            if type(right_branch) != Node:
+                right_branch = Node(right_branch)
+            new_node = generate_parent_node(left_branch, right_branch)
+            char_count_list.append((new_node, root_value))
+            char_count_list = sorted(char_count_list, key=getKey)
+            final_node = char_count_list[0][0]
     tree = Tree(final_node)
 #     Traverse the tree to assign a binary code and return a dictionary
     encoded_dic = encode(tree)
@@ -120,22 +125,24 @@ def huffman_decoding(data,tree):
             node = tree.get_root()
     return decoded_data
 
+
 def test(data):
-    print ("The content of the data is: {}\n".format(data))
+    print ("The content of the data is: {}".format(data))
+    print("The size of the data is:{}".format(sys.getsizeof(data)))
     encoded_data, tree = huffman_encoding(data)
     decoded_data = huffman_decoding(encoded_data, tree)
     
     if data != None:
-        print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-        print ("The content of the encoded data is: {}\n".format(encoded_data))
+        print ("The size of the encoded data is: {}".format(sys.getsizeof(int(encoded_data, base=2))))
+        print ("The content of the encoded data is: {}".format(encoded_data))
     
         for char in str(encoded_data):
             if char != '0' and char != '1':
                 print('The encoded data is not a binary code:',encoded_data)
                 break
     
-        print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-        print ("The content of the decoded data is: {}\n".format(decoded_data))
+        print ("The size of the decoded data is: {}".format(sys.getsizeof(decoded_data)))
+        print ("The content of the decoded data is: {}".format(decoded_data))
         if decoded_data != data:
             print('Fail: Decoded data:', decoded_data)
             print('is different from original input:',data)
@@ -146,15 +153,20 @@ def test(data):
             print("Fail: There is no gain in size with the encoded data: {}, Vs original data: {}".format(sys.getsizeof(int(encoded_data, base=2)),sys.getsizeof(data)))
         else:
             print("Pass: Compression is working!")
+        if sys.getsizeof(data) == sys.getsizeof(decoded_data):
+            print("Pass: Size of data is equal to size of decoded data!\n")
+        else:
+            print("Fail: Size of data: {} not equal to size of decoded data: {}!\n".format(sys.getsizeof(data),sys.getsizeof(decoded_data)))
     else:
         if encoded_data == None and decoded_data == None:
-            print("None input produces None output")
+            print("None input produces None output\n")
         else:
-            print("None input not handled")
-
-  
+            print("None input not handled\n")
 
 test("The bird is the word") # Expected output: Pass
-test("I love Udacity, the problems are great and challenging!") # Expected output: Pass
+test("I love Udacity, the problems are great and challenging!")# Expected output: Pass
 test(None) # Expected output: None input produces None output
+test("AAAAAAAAAAAAA") # Expected output: Pass
+test("A")# Expected output: Pass
+
 

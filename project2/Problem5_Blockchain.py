@@ -18,7 +18,6 @@ class Block:
 
         sha.update(hash_str)
         return sha.hexdigest()[-10:]
-    
     def get_hash(self):
         return self.hash
     def get_previous_hash(self):
@@ -39,6 +38,7 @@ class Blockchain():
         else:
             self.tail.next = new_block
             self.tail = new_block
+        return new_block
     def get_last_hash(self):
         if self.tail == None:
             return '00000'
@@ -62,6 +62,7 @@ class Blockchain():
         return str([v for v in self])
 
 
+
 def test(newblocks):
     myblockchain = Blockchain()
     for blockdata in newblocks:
@@ -82,7 +83,8 @@ def test(newblocks):
         print('Fail: blockchain is not Valid')
     print(myblockchain)
     
-test([100000])
+test([]) # Expected output: Pass: blockchain is Valid
+test([100000]) # Expected output: Pass: blockchain is Valid
 test([100000,20,45,80,None,2]) # Expected output: Pass: blockchain is Valid
 test([10,20,45,80,2]) # Expected output: Pass: blockchain is Valid
 test([10,20,45,80,'',2]) # Expected output: Pass: blockchain is Valid

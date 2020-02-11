@@ -1,16 +1,13 @@
 # Finding Files
 
-For this project, I had to implement a recursive algorithm to find all the paths of files under a directory that end with a specifix suffix.
-
 ## Data Structure
-To solve this problem, I used a list in which I stored all the paths.
-
-m = number of files per folder
-mf = number of subfolders in folder
+For this project, I had to implement a depth-first search algorithm to find all the paths of files under a directory of files (that can be considered as a tree where files act as leaves and directories act as internal nodes) that end with a specifix suffix. 
+n = total number of files and directories in the entire tree.
 
 ## Time complexity
-First, I needed to iterate through the folder content which takes O(m)
-Then, I go to each subfolder recursively which takes O(m * mf)
+Traversing the tree recursively will take O(n) since we are visiting each single node.
 
 ## Space complexity
-The space complexity is O(mf) (of total number of subfolders) 
+Since I am using recursion to find all the paths, in the worst case scenario, the return statement of list_of_paths will contain all the filesnames found.
+The recursion, despite allowing a more "compact code", requires generally more space than an iterative function. Each time a recursive function is called, it will be added to the call stack and will only be executed until all the subsequent calls of the same functions finished executing.
+On this problem, a recursive function is called each time a folder is found. In the worst case scenario, all the subfolders are nested. If d = number of directories, the space required will be O(d)
