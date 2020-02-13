@@ -1,6 +1,6 @@
 # Active Directory
 
-For this problem, I needed to implement a lookup function to find if a user is in a group or subgroup directory which can be visualized as a tree.
+For this problem, I needed to implement a lookup function to find if a user is in a group or subgroup directory which can be visualized as a tree (the groups act as the intermediate nodes and the users act as the leaf nodes).
 
 ## Time complexity
 I used recursion to go in the subfolder. 
