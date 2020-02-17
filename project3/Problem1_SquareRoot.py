@@ -23,9 +23,15 @@ def sqrt(number):
             result = mid
     return result
 
-print ("Pass" if  (3 == sqrt(9)) else "Fail") # Expected: Pass
-print ("Pass" if  (0 == sqrt(0)) else "Fail") # Expected: Pass
-print ("Pass" if  (4 == sqrt(16)) else "Fail") # Expected: Pass
-print ("Pass" if  (1 == sqrt(1)) else "Fail") # Expected: Pass
-print ("Pass" if  (5 == sqrt(27)) else "Fail") # Expected: Pass
-print ("Pass" if  (5 == sqrt(30)) else "Fail") # Expected: Pass
+def test(number, expected_result):
+    if sqrt(number) == expected_result:
+        print("Pass: Square Root of {} equals to {}".format(number, expected_result))
+    else:
+        print("Fail: Expected Result: {} Vs: {}".format(expected_result, sqrt(number)))
+
+test(9,3) # Pass
+test(1,1) # Pass
+test(27,5) # Pass
+test(30,5) # Pass
+test(-2,'invalid input') # Pass
+test(None,'invalid input') # Pass

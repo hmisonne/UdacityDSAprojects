@@ -1,4 +1,6 @@
 def rearrange_digits(input_list):
+    if input_list == None:
+        return None
     return mergesort(input_list, len(input_list))
 
 def mergesort(items, original_size):
@@ -75,11 +77,19 @@ def final_merge(left, right):
 def test_function(test_case):
     output = rearrange_digits(test_case[0])
     solution = test_case[1]
-    if sum(output) == sum(solution):
-        print("Pass")
+    print("Rearranging array: {}".format(test_case[0]))
+    if output == None:
+        print("Pass: None input return None output")
+    elif len(output) <= 1 :
+        print("Pass: Array of 1 or 0 element: {} returns same element: {}".format(test_case[0],output))
+    elif sum(output) == sum(solution):
+        print("Pass: Largest number are {} and {}".format(output[0],output[1]))
     else:
         print("Fail")
 
 test_function([[1, 2, 3, 4, 5], [542, 31]])
-test_case = [[4, 6, 2, 5, 9, 8], [964, 852]]
-test_function(test_case)
+test_function([[4, 6, 2, 5, 9, 8], [964, 852]])
+test_function([[7,0,6,2,5,5], [750, 652]])
+test_function([[4], [4]])
+test_function([[], []])
+test_function([None, None])
