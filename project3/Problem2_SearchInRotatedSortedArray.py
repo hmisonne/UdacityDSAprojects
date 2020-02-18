@@ -15,7 +15,10 @@ def rotated_array_search(input_list, number):
     while last_index >= first_index:
         mid = (first_index + last_index) // 2
         if input_list[mid] == number:
-            return mid
+            if input_list[mid + 1] == input_list[mid]:
+                return "Duplicate numbers"
+            else:
+                return mid
         elif number < input_list[mid]:
             if input_list[first_index] > number:
                 first_index = mid + 1
@@ -35,7 +38,10 @@ def linear_search(input_list, number):
         return -1
     for index, element in enumerate(input_list):
         if element == number:
-            return index
+            if input_list[index + 1] == element:
+                return "Duplicate numbers"
+            else:
+                return index
     return -1
 
 def test_function(test_case):
@@ -45,12 +51,13 @@ def test_function(test_case):
     if linear_search(input_list, number) == rotated_array_search(input_list, number):
         print("Pass: number {} located on index: {}".format(number, linear_search(input_list, number)))
     else:
-        print("Fail")
+        print("Fail: number {} located on index: {} instead of index: {}".format(number, rotated_array_search(input_list, number), linear_search(input_list, number)))
 
 test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 6]) #Expected Output: Pass
 test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1]) #Expected Output: Pass
 test_function([[6, 7, 8, 1, 2, 3, 4], 8]) #Expected Output: Pass
 test_function([[6, 7, 8, 1, 2, 3, 4], 1]) #Expected Output: Pass
 test_function([[6, 7, 8, 1, 2, 3, 4], 10]) #Expected Output: Pass
+test_function([[6,6,6,6], 6]) #Expected Output: Pass
 test_function([[], None]) #Expected Output: Pass
 test_function([None, None]) #Expected Output: Pass

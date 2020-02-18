@@ -13,7 +13,7 @@ def sqrt(number):
         return 'invalid input'
         
     first = 1
-    last = number
+    last = number // 2
    
     while last >= first:
         mid = (last + first) // 2 
