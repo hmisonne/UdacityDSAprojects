@@ -7,8 +7,11 @@ def sqrt(number):
     Returns:
        int: Floored Square Root
     """
-    if number == 0 or number == 1:
+    if number == 0 or number == 1 :
         return number
+    if number == None or number == '' or number < 0:
+        return 'invalid input'
+        
     first = 1
     last = number
    
@@ -22,7 +25,7 @@ def sqrt(number):
             first = mid + 1
             result = mid
     return result
-
+        
 def test(number, expected_result):
     if sqrt(number) == expected_result:
         print("Pass: Square Root of {} equals to {}".format(number, expected_result))
