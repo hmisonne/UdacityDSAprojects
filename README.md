@@ -6,13 +6,13 @@ Advanced course on Data Structures & Algorithms with hands-on practice:
 • Advanced algorithms such as brute-force greedy algorithms, graph algorithms, and dynamic programming 
 
 Problem 1:
-Open-ended problems into smaller components (e.g, inputs, outputs, series of functions).
+Deconstruction of a series of open-ended problems into smaller components (e.g, inputs, outputs, series of functions).
 
 Problem 2:
-Open-ended practice problems such as LRU Cache, Private Blockchain, File Recursion, and many more.
+Open-ended practice problems: LRU Cache, Private Blockchain, File Recursion.
 
 Problem 3:
-real-world open-ended problems, such as request routing for a web server, search-term auto-completion and Fibonacci heap
+Real-world open-ended problems: request routing for a web server, search-term auto-completion and Fibonacci heap
 
 Problem 4:
 Route-planning algorithm to calculate the shortest path between two points on a map with the implementation of the A* algorithm to find shortest path.
